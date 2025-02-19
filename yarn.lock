@@ -1780,7 +1780,7 @@
   resolved "https://registry.yarnpkg.com/@radix-ui/rect/-/rect-1.1.0.tgz#f817d1d3265ac5415dadc67edab30ae196696438"
   integrity sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==
 
-"@radix-ui/themes@^2.1.1":
+"@radix-ui/themes@2.1.0-rc.10":
   version "2.1.0-rc.10"
   resolved "https://registry.yarnpkg.com/@radix-ui/themes/-/themes-2.1.0-rc.10.tgz#dd0f20aae0c851fa93bb1e7061f36a4efa699d0a"
   integrity sha512-dFMHfsOR4gdsGVgM2juYz/wREIkYJ6d7JJ1DRe13fPQrgmF4YAoK5lY+wsyC4D2AatIeWnum5fuoJDtDjY/z0g==
