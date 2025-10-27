@@ -25,3 +25,17 @@ dist-ssr
 
 .turbo
 .vite
+
+# Cursor
+.cursor
+
+# Memory bank
+memory-bank
+
+# Codex
+.codex
+AGENTS.md
+
+# Claude
+.claude
+CLAUDE.md

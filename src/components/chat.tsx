@@ -53,8 +53,8 @@ export default function Page({ agentId }: { agentId: UUID }) {
         smooth: true,
     });
    
-    // Track the timestamp of last message sync
-    const [lastSyncTime, setLastSyncTime] = useState<number>(0);
+    // Track the timestamp of last message sync per bot
+    const [lastSyncTimes, setLastSyncTimes] = useState<Record<string, number>>({});
 
     // Setup message synchronization with interval
     useEffect(() => {
@@ -69,7 +69,8 @@ export default function Page({ agentId }: { agentId: UUID }) {
         
         async function syncMessages() {
             try {
-                const newMessages = await apiClient.getBotMessages(agentId, lastSyncTime);
+                const currentLastSync = lastSyncTimes[agentId] || 0;
+                const newMessages = await apiClient.getBotMessages(agentId, currentLastSync);
                 
                 if (!newMessages?.length) return;
                 
@@ -82,11 +83,11 @@ export default function Page({ agentId }: { agentId: UUID }) {
                         ));
                         
                         // Filter out messages that already exist
-                        const uniqueNewMessages = newMessages.filter((msg: ContentWithUser) => 
+                        const uniqueNewMessages = newMessages.filter((msg: ContentWithUser) =>
                             !messageSet.has(`${msg.id}`)
                         );
-                        
-                        setLastSyncTime(Date.now());
+
+                        setLastSyncTimes(prev => ({ ...prev, [agentId]: Date.now() }));
                         return [...old, ...uniqueNewMessages];
                     }
                 );
@@ -94,7 +95,7 @@ export default function Page({ agentId }: { agentId: UUID }) {
                 console.error('Failed to sync messages:', error);
             }
         }
-    }, [agentId, lastSyncTime, queryClient]);
+    }, [agentId, lastSyncTimes[agentId], queryClient]);
 
     useEffect(() => {
         scrollToBottom();
@@ -183,7 +184,7 @@ export default function Page({ agentId }: { agentId: UUID }) {
                 ]
             );
 
-            setLastSyncTime(Date.now());
+            setLastSyncTimes(prev => ({ ...prev, [agentId]: Date.now() }));
         },
         onError: (e) => {
             toast({
